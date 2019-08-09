@@ -1,0 +1,16 @@
+[Unit]
+Description = Diaz Explorer (API)
+After = network.target
+
+[Service]
+Type = simple
+WorkingDirectory = /usr/lib/node_modules/diaz-explorer
+ExecStart = /usr/bin/npm run start:api
+Restart = always
+Environment = NODE_ENV=production
+SyslogIdentifier = diaz-explorer
+StandardOutput = syslog
+StandardError = syslog
+
+[Install]
+WantedBy = multi-user.target

@@ -1,0 +1,111 @@
+.table-wrapper {
+  @include media-breakpoint-down(lg) {
+    overflow-x: auto;
+  }
+
+  &__shadow-margin {
+    display: block;
+
+    @include media-breakpoint-down(lg) {
+      display: block;
+      margin-left: 1px;
+      margin-right: 20px;
+    }
+  }
+}
+
+.table {
+  width: 99.8%;
+  border-radius: 5px;
+  outline: 10px solid transparent;
+  box-shadow: 0 1px 3px lighten($grey-85-black, 15%);
+
+  tr {
+    transition: all 1s cubic-bezier(0, 1, .5, 1);
+  }
+
+  tr:first-child {
+    td {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+
+  tr:nth-child(even) {
+    color: $grey-85-black;
+
+    td, a, a:visited {
+      color: $grey-85-black;
+
+      &:hover {
+        color: $dark-brown-1;
+      }
+    }
+  }
+
+  tr:nth-child(odd) {
+    color: $grey-85-black;
+
+    td, a, a:visited {
+      color: $grey-85-black;
+
+      &:hover {
+        color: $dark-brown-1;
+      }
+    }
+  }
+
+  th {
+    background-color: $dark-brown-1;
+    color: $grey-10-black;
+    font-size: 16px;
+    min-width: 100px;
+    padding: 8px 5px;
+    text-transform: uppercase;
+    border: 0px;
+  }
+
+  th:first-child {
+    padding-left: 32px;
+    border-radius: 5px 0 0 0;
+  }
+
+  th:last-child {
+    padding-right: 32px;
+    text-align: right;
+    border-radius: 0 5px 0 0;
+  }
+
+  td {
+    min-width: 120px;
+    max-width: 450px;
+    overflow: hidden;
+    padding: 8px;
+    padding-right: 5px;
+    text-align: left;
+    text-overflow: ellipsis;
+    border-top: 1px solid darken($light-brown-3, 10%);
+  }
+
+  td:first-child {
+    padding-left: 32px;
+  }
+
+  td:last-child {
+    padding-right: 32px;
+    text-align: right;
+    min-width: 0;
+  }
+
+  tbody {
+    font-size: .9em;
+  }
+
+  &--has-divider {
+    thead {
+      th {
+        border-bottom: 1px solid $dark-brown-1;
+      }
+    }
+  }
+}

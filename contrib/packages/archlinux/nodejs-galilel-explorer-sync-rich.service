@@ -1,0 +1,10 @@
+[Unit]
+Description = Diaz Explorer (Sync) - Rich list update
+
+[Service]
+Type = simple
+WorkingDirectory = /usr/lib/node_modules/diaz-explorer
+ExecStart = /usr/bin/node cron/rich.js
+SyslogIdentifier = diaz-explorer
+StandardOutput = syslog
+StandardError = syslog

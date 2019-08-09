@@ -1,0 +1,84 @@
+# Maintainer: Maik Broemme <mbroemme@libmpq.org>
+pkgname="nodejs-diaz-explorer"
+pkgdesc="Diaz Explorer"
+pkgver=0.2.0
+pkgrel=1
+arch=("any")
+url="https://explorer.diaz.org"
+license=("MIT")
+depends=("nodejs" "npm" "mongodb")
+backup=(
+  "etc/nodejs/diaz-explorer/config.js"
+  "etc/nodejs/diaz-explorer/config_private.js"
+)
+source=(
+  "nodejs-diaz-explorer::git://github.com/diazcoin/diaz-explorer#tag=v${pkgver}"
+  "${pkgname}-daemon-api.service"
+  "${pkgname}-daemon-web.service"
+  "${pkgname}-sync-block.service"
+  "${pkgname}-sync-block.timer"
+  "${pkgname}-sync-coin.service"
+  "${pkgname}-sync-coin.timer"
+  "${pkgname}-sync-masternode.service"
+  "${pkgname}-sync-masternode.timer"
+  "${pkgname}-sync-peer.service"
+  "${pkgname}-sync-peer.timer"
+  "${pkgname}-sync-proposal.service"
+  "${pkgname}-sync-proposal.timer"
+  "${pkgname}-sync-rich.service"
+  "${pkgname}-sync-rich.timer"
+)
+sha256sums=(
+  "SKIP"
+  "2793b7ce8ad645563ebc7457588d02220f3070e9a3445205ff8f2f70b2c5c3ae"
+  "05bf6c9a287a7e07e3214d8c012685c84242ff34b917c4c14e7ffbc94a7a10ce"
+  "07132a8a1dcb85acaad0fd5a6ae2f4870e0e134d9e6bf3ca84cdaf016ca12746"
+  "39f81c3464c5d89b47392c371c586930000e230ca4bf719d8edf06cd8b7724ba"
+  "a4a0d6d7553adcc61141d7e16f4eb6694cefa7d54786d7e5b12760b56a4830de"
+  "5c5c33828fda0472ecc941b1a9d5f1ae9b77a8272bfb0a1bafb96d8a5a14b02d"
+  "7d3f336eded5c7a273363602e23ef994951be6fee590e9b17328630c9c012027"
+  "413ec5843c21b4c5b379fde96388727b4435748221e2724995fbbc1738e01b80"
+  "4a53b30e9a9031ac5f23d54ae466ff3a49be4f244e526e72b31c27738b746346"
+  "c9f2182030a483826182cfc86391d53218c9f0177e219bc83643e986575ff92b"
+  "8e00cd0e0d194d4dc9462a66c3a9e7168797b2b860aa43f3a85eccc48038760b"
+  "eefe48f44d24940bdf3da689d85fcebba44941894cf5adbcb6ed07d58747cad8"
+  "64a70b517c009b8b6b32741b07d8c3fb72df909a2b7d88ea926010e34dcefc24"
+  "8af2515c4fbfb144f744e7c96aed5ea49622dd2705bbb05f2235750f1f2d2be3"
+)
+
+build() {
+  cd "${srcdir}/${pkgname}"
+  npm install \
+    --user root \
+    --no-save
+  node_modules/.bin/webpack --progress --colors
+}
+
+package() {
+  cd "${srcdir}/${pkgname}"
+  npm pack
+  npm install \
+    --prefix "${pkgdir}/usr" "${srcdir}/${pkgname}/${pkgname#nodejs-}-${pkgver}.tgz" \
+    --user root \
+    --global \
+    --no-save
+  install -d -m 0755 "${pkgdir}/etc/nodejs/diaz-explorer"
+  install -D -m 0644 "${pkgdir}/usr/lib/node_modules/diaz-explorer/config.template.js" "${pkgdir}/etc/nodejs/diaz-explorer/config.js"
+  install -D -m 0644 "${pkgdir}/usr/lib/node_modules/diaz-explorer/config_private.template.js" "${pkgdir}/etc/nodejs/diaz-explorer/config_private.js"
+  install -D -m 0644 "${srcdir}/${pkgname}-daemon-api.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-daemon-api.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-daemon-web.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-daemon-web.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-block.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-block.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-block.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-block.timer"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-coin.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-coin.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-coin.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-coin.timer"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-masternode.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-masternode.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-masternode.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-masternode.timer"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-peer.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-peer.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-peer.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-peer.timer"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-proposal.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-proposal.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-proposal.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-proposal.timer"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-rich.service" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-rich.service"
+  install -D -m 0644 "${srcdir}/${pkgname}-sync-rich.timer" "${pkgdir}/usr/lib/systemd/system/${pkgname}-sync-rich.timer"
+  ln -s "/etc/nodejs/diaz-explorer/config.js" "${pkgdir}/usr/lib/node_modules/diaz-explorer/public/config.js"
+  ln -s "/etc/nodejs/diaz-explorer/config_private.js" "${pkgdir}/usr/lib/node_modules/diaz-explorer/config_private.js"
+}

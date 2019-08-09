@@ -1,0 +1,10 @@
+[Unit]
+Description = Diaz Explorer (Sync) - Blockchain update
+
+[Service]
+Type = simple
+WorkingDirectory = /usr/lib/node_modules/diaz-explorer
+ExecStart = /usr/bin/node cron/block.js
+SyslogIdentifier = diaz-explorer
+StandardOutput = syslog
+StandardError = syslog

@@ -1,0 +1,37 @@
+button {
+  background-color: $dark-brown-1;
+  border: 1px solid $dark-brown-1;
+  border-radius: 3px;
+  color: $grey-10-black;
+  cursor: pointer;
+  margin: 7px 0px 2px 0px;
+  padding: 4px 16px;
+
+  &:focus,
+  &:hover {
+    background-color: darken($dark-brown-1, 10%);
+  }
+}
+
+input, select {
+  background-color: $light-brown-3;
+  border: 1px solid $light-brown-3;
+  border-radius: 1px;
+  box-sizing: border-box;
+  color: $grey-85-black;
+  display: inline-block;
+  font-size: 14px;
+  height: 33px;
+  margin: 8px 0;
+  padding: 12px 20px;
+
+  &::placeholder {
+    color: $grey-85-black;
+  }
+
+  &:focus,
+  &:hover {
+    border-color: $grey-85-black;
+    color: $grey-85-black;
+  }
+}

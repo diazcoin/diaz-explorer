@@ -1,0 +1,8 @@
+#qr-code {
+  border: 1px solid $grey-10-black;
+  border-radius: 5px;
+  background-color: $grey-10-black;
+  box-shadow: 0 1px 3px lighten($grey-85-black, 15%);
+  padding: 15px;
+  text-align: center;
+}

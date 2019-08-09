@@ -1,0 +1,71 @@
+/**
+ * Overrides bootstrap table class
+ */
+.footer {
+  display: flex;
+  background-color: $light-brown-3;
+  border-top: 1px solid darken($light-brown-3, 10%);
+  bottom: 0;
+  flex-wrap: wrap;
+  font-size: .8em;
+  padding-top: 2em;
+  justify-content: space-around;
+
+  /**
+   * Negative used to compensate for content padding
+   */
+  margin: .2em -2em;
+
+  &__block {
+    display: flex;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: 1em 0;
+  }
+
+  &__data-wrapper {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+
+  &__data-block {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em;
+  }
+
+  &__data-title {
+    text-transform: uppercase;
+  }
+
+  &__social-title {
+    margin-bottom: .5em;
+    text-transform: uppercase;
+    width: 100%;
+  }
+
+  &__social-media-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__social-media-icon {
+    color: $dark-brown-1;
+    font-size: 2em;
+    margin-right: .5em;
+    text-align: center;
+
+    &:hover,
+    &:focus {
+      color: darken($dark-brown-1, 10%);
+    }
+  }
+
+  @include media-breakpoint-up(md) {
+
+    /**
+     * position: fixed;
+     */
+  }
+}

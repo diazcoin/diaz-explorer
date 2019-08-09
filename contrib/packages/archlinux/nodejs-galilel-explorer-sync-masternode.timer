@@ -1,0 +1,10 @@
+[Unit]
+Description = Diaz Explorer (Sync) - Masternode update timer
+
+[Timer]
+OnCalendar = *:0/1
+RandomizedDelaySec = 5
+Persistent = true
+ 
+[Install]
+WantedBy = timers.target
